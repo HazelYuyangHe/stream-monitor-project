@@ -24,8 +24,16 @@
         const totalFrames = playbackQuality?.totalVideoFrames || 0;
         const bitrate = hls.bandwidthEstimate;
 
-        const latency = hls.latency || Math.floor(Math.random() * 100); // Simulated latency
-
+        let latency = 0;
+          try {
+            if (video.buffered.length > 0) {
+              const bufferedEnd = video.buffered.end(0);
+              const currentTime = video.currentTime;
+              latency = Math.max(0, bufferedEnd - currentTime); // avoid negative latency
+            }
+          } catch (e) {
+            latency = 0;
+          }
         statsDiv.textContent = `
 Bitrate Estimate: ${Math.floor(bitrate / 1000)} kbps
 Dropped Frames: ${droppedFrames}
