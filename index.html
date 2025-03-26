@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Streaming Monitor</title>
+</head>
+<body>
+  <h2>Video Player + Performance Monitor</h2>
+  <video id="video" width="640" height="360" controls autoplay></video>
+  <pre id="stats"></pre>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const statsDiv = document.getElementById('stats');
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
+      hls.attachMedia(video);
+
+      setInterval(() => {
+        const playbackQuality = video.getVideoPlaybackQuality?.();
+        const droppedFrames = playbackQuality?.droppedVideoFrames || 0;
+        const totalFrames = playbackQuality?.totalVideoFrames || 0;
+        const bitrate = hls.bandwidthEstimate;
+
+        const latency = hls.latency || Math.floor(Math.random() * 100); // Simulated latency
+
+        statsDiv.textContent = `
+Bitrate Estimate: ${Math.floor(bitrate / 1000)} kbps
+Dropped Frames: ${droppedFrames}
+Total Frames: ${totalFrames}
+Latency (simulated): ${latency} ms
+        `;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
