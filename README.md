@@ -16,16 +16,16 @@ This project is part of Iteration 3 for our CS 5700 course. Our objective was to
 
 We created a lightweight HTML/JS-based tool that:
 
-✅ Loads a live HLS test stream  
-✅ Monitors key performance metrics from the browser  
-✅ Requires no installation — runs in any modern browser  
+- Loads a live HLS test stream  
+- Monitors key performance metrics from the browser  
+- Requires no installation — runs in any modern browser  
 
 📊 The real-time metrics displayed include:
 
 - Bitrate Estimate (from hls.js)
 - Dropped Frames
 - Total Frames Played
-- Approximated Latency (buffered end - current time)
+- Realistic latency approximation using buffered.end(0) - currentTime  
 
 ---
 
@@ -48,23 +48,10 @@ We recorded a demonstration showing how the system reacts to changing network co
 - Changes in latency calculated from playback buffering
 
 📺 Demo video link:  
-👉 [Insert Video Link Here]
+- https://www.youtube.com/watch?v=adcJLp3uoOU (3G)
+- https://www.youtube.com/watch?v=izYiyJgkU9c (4G Slow)
+- https://www.youtube.com/watch?v=6ITSGXRJVnk (4G Fast) 
 
----
-
-## 📷 Results Snapshot
-
-| Network Type | Bitrate (kbps) | Dropped Frames | Total Frames | Latency (ms) |
-|--------------|----------------|----------------|---------------|--------------|
-| 3G           | ~1100          | 54             | 3450          | 1.8          |
-| Slow 4G      | ~2300          | 20             | 5200          | 0.9          |
-| 4G           | ~4400          | 5              | 6780          | 0.4          |
-
-Screenshots showing live metric updates:
-
-| Normal Network | Throttled Network |
-|----------------|------------------|
-| ![normal](screenshot-normal.png) | ![slow](screenshot-slow3g.png) |
 
 ---
 
@@ -100,13 +87,4 @@ Screenshots showing live metric updates:
 
 - index.html — Main web app with HLS player and performance monitor  
 - README.md — This file  
-- (Optional) screenshots/ — Folder for test images  
-- (Optional) demo_video.mp4 — Screen recording of functional test
 
----
-
-## 📌 Future Work
-
-- Export real-time metrics as CSV or JSON for deeper analysis  
-- Integrate Chart.js for real-time bitrate/frame drop visualization  
-- Add a start/stop logging toggle for time-series testing
